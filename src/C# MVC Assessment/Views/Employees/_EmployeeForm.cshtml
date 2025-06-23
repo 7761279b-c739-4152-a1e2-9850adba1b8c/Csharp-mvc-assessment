@@ -1,0 +1,33 @@
+﻿@model C__MVC_Assessment.ViewModels.EmployeeBaseViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Employee.FirstName, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Employee.FirstName, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Employee.LastName, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Employee.LastName, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Employee.CompanyId, new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.Employee.CompanyId,
+            Model.CompaniesSelectListItems, "", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Employee.Email, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Employee.Email, new { @class = "form-control" })
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Employee.PhoneNumber, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Employee.PhoneNumber, new { @class = "form-control" })
+        </div>
+
+    </div>
+</div>

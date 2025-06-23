@@ -3,19 +3,45 @@
 @model List<C__MVC_Assessment.Models.Company>
 
 @{
-    
+    ViewBag.Title = "View Companies";
 }
 
-<!DOCTYPE html>
+@Html.Partial("_Message")
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>View Companies</title>
-</head>
-<body>
-    <div>
-    
-    </div>
-</body>
-</html>
+<h2>@ViewBag.Title</h2>
+
+<div class="pull-right">
+    <a href="@Url.Action("Add")" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-plus"></span> Add company
+    </a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><!-- logo --></th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Website</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td></td>
+                <td>@company.Name</td>
+                <td>@(company.Email is null ? "" : company.Email)</td>
+                <td>@(company.WebsiteUrl is null ? "" : $"<a href=\"{company.WebsiteUrl}\" target=\"_blank\">{company.WebsiteUrl}</a>")</td>
+                <td>
+                    <div class="pull-right">
+                        <a href="@Url.Action("Detail", new { id = company.Id })" class="btn btn-primary btn-xs margin-right">
+                            <span class="glyphicon glyphicon-info-sign"></span><span class="hidden-xs"> Detail</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

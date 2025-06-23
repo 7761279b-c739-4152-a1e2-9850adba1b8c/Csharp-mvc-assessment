@@ -47,7 +47,7 @@ namespace C__MVC_Assessment.Controllers
         {
             var viewModel = new EmployeeAddViewModel();
 
-            viewModel.Init();
+            viewModel.Init(Context);
 
             return View(viewModel);
         }
@@ -69,7 +69,7 @@ namespace C__MVC_Assessment.Controllers
                 return RedirectToAction("Detail", new {id = employee.Id});
             }
 
-            viewModel.Init();
+            viewModel.Init(Context);
 
             return View(viewModel);
         }
@@ -95,7 +95,7 @@ namespace C__MVC_Assessment.Controllers
             {
                 Employee = employee
             };
-            viewModel.Init();
+            viewModel.Init(Context);
 
             return View(viewModel);
 
@@ -118,7 +118,7 @@ namespace C__MVC_Assessment.Controllers
                 return RedirectToAction("Detail", new { id = employee.Id });
             }
 
-            viewModel.Init();
+            viewModel.Init(Context);
 
             return View(viewModel);
         }

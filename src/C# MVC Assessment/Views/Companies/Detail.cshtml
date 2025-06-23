@@ -1,19 +1,55 @@
 ﻿@model C__MVC_Assessment.Models.Company
 
 @{
-    
+    ViewBag.Title = "View Company";
 }
 
-<!DOCTYPE html>
+@Html.Partial("_Message")
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>View Company</title>
-</head>
-<body>
-    <div>
-    
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-xs-4 col-sm-4">
+                <p>Name</p>
+            </div>
+            <div class="col-xs-8 col-sm-8">
+                @Model.Name
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4 col-sm-4">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="col-xs-8 col-sm-8">
+                @Model.Email
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4 col-sm-4">
+                @Html.LabelFor(m => m.WebsiteUrl)
+            </div>
+            <div class="col-xs-8 col-sm-8">
+                @(Model.WebsiteUrl is null ? "" : $"<a href=\"{Model.WebsiteUrl}\" target=\"_blank\">{Model.WebsiteUrl}</a>")
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+<div class="pad-top">
+    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary btn-lg margin-right">
+        <span class="glyphicon glyphicon-edit"></span> Edit
+    </a>
+    <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger btn-lg margin-right">
+        <span class="glyphicon glyphicon-trash"></span> Delete
+    </a>
+    <a href="@Url.Action("Index")" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-step-backward"></span> Back
+    </a>
+</div>
+
+
+<!-- todo company employees -->

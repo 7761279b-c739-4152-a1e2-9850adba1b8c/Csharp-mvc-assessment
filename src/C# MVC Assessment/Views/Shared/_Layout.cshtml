@@ -1,0 +1,45 @@
+﻿@{
+    var applicationName = "";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @applicationName</title>
+    <!-- todo move stylesheet to local -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+</head>
+<body>
+    <div>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- home page link -->
+                </div>
+                <div>
+                    <ul class="nav">
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Companies" ? "active" : "")">@Html.ActionLink("Companies", "Index", "Companies", null, new { @class="btn btn-secondary mr-2" })</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Employees" ? "active" : "")">@Html.ActionLink("Employees", "Index", "Employees", null, new { @class = "btn btn-secondary" })</li>
+                    </ul>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+        </footer>
+    </div>
+
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+</body>
+</html>

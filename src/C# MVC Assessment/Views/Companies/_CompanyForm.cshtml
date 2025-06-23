@@ -1,0 +1,26 @@
+﻿@model C__MVC_Assessment.ViewModels.CompanyBaseViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Company.Name, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Company.Name, new { @class = "form-control" })
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Company.Email, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Company.Email, new { @class = "form-control" })
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(m => m.Company.LogoFilepath, new { @class = "control-label" })
+            @Html.FileUploadFor(m => m.Company.LogoFilepath, new { @class = "form-control" })
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(m => m.Company.WebsiteUrl, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Company.WebsiteUrl, new { @class = "form-control" })
+        </div>
+
+    </div>
+</div>
