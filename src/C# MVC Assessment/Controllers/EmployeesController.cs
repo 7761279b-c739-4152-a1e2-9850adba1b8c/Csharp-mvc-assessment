@@ -1,21 +1,21 @@
-﻿using C__MVC_Assessment.Models;
+﻿using C__MVC_Assessment.Data;
+using C__MVC_Assessment.Models;
 using C__MVC_Assessment.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
 
 namespace C__MVC_Assessment.Controllers
 {
     public class EmployeesController : BaseController
     {
+        public EmployeesController(Context context) : base(context)
+        {
+        }
         public ActionResult Index()
         {
             var employees = Context.Employees
-                .Include(e  => e.Company)
+                .Include(e => e.Company)
                 .OrderBy(e => e.LastName)
                 .ThenBy(e => e.FirstName)
                 .ToList();
@@ -27,7 +27,7 @@ namespace C__MVC_Assessment.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new StatusCodeResult(StatusCodes.Status400BadRequest);
             }
 
             var employee = Context.Employees
@@ -37,12 +37,12 @@ namespace C__MVC_Assessment.Controllers
 
             if (employee == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(employee);
         }
-        
+
         public ActionResult Add()
         {
             var viewModel = new EmployeeAddViewModel();
@@ -66,7 +66,7 @@ namespace C__MVC_Assessment.Controllers
 
                 TempData["Message"] = "Employee created successfully";
 
-                return RedirectToAction("Detail", new {id = employee.Id});
+                return RedirectToAction("Detail", new { id = employee.Id });
             }
 
             viewModel.Init(Context);
@@ -78,7 +78,7 @@ namespace C__MVC_Assessment.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
 
             var employee = Context.Employees
@@ -88,7 +88,7 @@ namespace C__MVC_Assessment.Controllers
 
             if (employee == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             var viewModel = new EmployeeEditViewModel()
@@ -127,7 +127,7 @@ namespace C__MVC_Assessment.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
 
             var employee = Context.Employees
@@ -137,7 +137,7 @@ namespace C__MVC_Assessment.Controllers
 
             if (employee == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(employee);
@@ -159,10 +159,7 @@ namespace C__MVC_Assessment.Controllers
 
         private void ValidateEmployee(Employee employee)
         {
-            if (ModelState.IsValidField("Employee.Company"))
-            {
-
-            }
+            
         }
     }
 }

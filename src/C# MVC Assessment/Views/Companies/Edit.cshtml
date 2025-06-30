@@ -6,7 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Companies", null, FormMethod.Post, false, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary("Unable to edit company:", new { @class = "alert alert-danger" })
 

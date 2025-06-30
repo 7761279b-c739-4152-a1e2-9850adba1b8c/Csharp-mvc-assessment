@@ -1,19 +1,29 @@
 ﻿@model C__MVC_Assessment.ViewModels.CompanyAddViewModel
 
 @{
-    
+    ViewBag.Title = "Add Company";
 }
 
-<!DOCTYPE html>
+<h2>@ViewBag.Title</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+@using (Html.BeginForm("Add", "Companies", null, FormMethod.Post, false, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary("Unable to create company:", new { @class = "alert alert-danger" })
+
+    <h3></h3>
+
+    @Html.Partial("_CompanyForm")
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pad-top">
+                <button type="submit" class="btn btn-success btn-lg margin-right">
+                    <span class="glyphicon glyphicon-save"></span> Save
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-warning btn-lg">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                </a>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+}

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace C__MVC_Assessment.Models
 {
@@ -11,16 +8,15 @@ namespace C__MVC_Assessment.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string LogoFilepath { get; set; }
-        [Display(Name="Website")]
-        public string WebsiteUrl { get; set; }
+        public string? Email { get; set; }
+        public string? LogoFilepath { get; set; }
+        [NotMapped]
+        public IFormFile? LogoFile { get; set; }
 
-        public ICollection<Employee> Employees { get; set; }
+        [Display(Name = "Website")]
+        public string? WebsiteUrl { get; set; }
 
-        public Company()
-        {
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
-        }
     }
 }

@@ -10,6 +10,14 @@
 
 <div class="row">
     <div class="col-md-6">
+
+        <p>@Model.LogoFilepath</p>
+        @if (Model.LogoFilepath != "")
+        {
+            <div class="row">
+                @Html.DisplayFor(_ => Model.LogoFilepath)
+            </div>
+        }
         <div class="row">
             <div class="col-xs-4 col-sm-4">
                 <p>Name</p>

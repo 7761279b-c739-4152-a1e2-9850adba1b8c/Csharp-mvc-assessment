@@ -1,10 +1,5 @@
-﻿
+﻿using Microsoft.AspNetCore.Mvc;
 using C__MVC_Assessment.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace C__MVC_Assessment.Controllers
 {
@@ -14,9 +9,9 @@ namespace C__MVC_Assessment.Controllers
 
         protected Context Context { get; private set; }
 
-        public BaseController()
+        public BaseController(Context context)
         {
-            Context = new Context();
+            Context = context;
 
         }
 

@@ -30,7 +30,12 @@
         @foreach (var company in Model)
         {
             <tr>
-                <td></td>
+                <td>
+                    @if (company.LogoFilepath != "")
+                    {
+                        @Html.DisplayFor(_ => company.LogoFilepath)
+                    }
+                </td>
                 <td>@company.Name</td>
                 <td>@(company.Email is null ? "" : company.Email)</td>
                 <td>@(company.WebsiteUrl is null ? "" : $"<a href=\"{company.WebsiteUrl}\" target=\"_blank\">{company.WebsiteUrl}</a>")</td>

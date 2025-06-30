@@ -1,18 +1,20 @@
-﻿using C__MVC_Assessment.Models;
+﻿using C__MVC_Assessment.Data;
+using C__MVC_Assessment.Models;
 using C__MVC_Assessment.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+
 
 namespace C__MVC_Assessment.Controllers
 {
     public class CompaniesController : BaseController
     {
-        public ActionResult Index()
+        public CompaniesController(Context context) : base(context)
+        {
+        }
+
+        public IActionResult Index()
         {
             var companies = Context.Companies
                 .Include(e => e.Employees)
@@ -22,11 +24,11 @@ namespace C__MVC_Assessment.Controllers
             return View(companies);
         }
 
-        public ActionResult Detail(int? id)
+        public IActionResult Detail(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
 
             var company = Context.Companies
@@ -36,7 +38,7 @@ namespace C__MVC_Assessment.Controllers
 
             if (company == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(company);
@@ -52,13 +54,37 @@ namespace C__MVC_Assessment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(CompanyAddViewModel viewModel)
+        public async Task<IActionResult> Add(Company company)
         {
-            ValidateCompany(viewModel.Company);
+            ValidateCompany(company);
+
 
             if (ModelState.IsValid)
             {
-                var company = viewModel.Company;
+                // get file from request
+                // todo fix this
+
+                if (company.LogoFile != null)
+                {
+                    if (!company.LogoFile.ContentType.StartsWith("image/"))
+                    {
+                        ModelState.AddModelError("LogoFile", "Logo must be an image");
+                        return View(company);
+                    }
+
+                    // todo image size validation
+                    //var image = Image.FromStream(company.LogoFile.OpenReadStream());
+
+                    string filepath = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "LogoFiles"));
+                    Directory.CreateDirectory(filepath);
+
+                    using (var fs = new FileStream(filepath, FileMode.Create))
+                    {
+                        await company.LogoFile.CopyToAsync(fs);
+                    }
+
+                    company.LogoFilepath = "/" + Path.Combine("LogoFiles", company.LogoFile.FileName);
+                }
 
                 Context.Companies.Add(company);
                 Context.SaveChanges();
@@ -68,16 +94,14 @@ namespace C__MVC_Assessment.Controllers
                 return RedirectToAction("Detail", new { id = company.Id });
             }
 
-            viewModel.Init();
-
-            return View(viewModel);
+            return View(company);
         }
 
-        public ActionResult Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
 
             var company = Context.Companies
@@ -87,7 +111,7 @@ namespace C__MVC_Assessment.Controllers
 
             if (company == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             var viewModel = new CompanyEditViewModel()
@@ -101,7 +125,7 @@ namespace C__MVC_Assessment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(CompanyEditViewModel viewModel)
+        public IActionResult Edit(CompanyEditViewModel viewModel)
         {
             ValidateCompany(viewModel.Company);
 
@@ -122,11 +146,11 @@ namespace C__MVC_Assessment.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
 
             var company = Context.Companies
@@ -136,14 +160,14 @@ namespace C__MVC_Assessment.Controllers
 
             if (company == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(company);
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
 
             // todo include employees and check its empty
