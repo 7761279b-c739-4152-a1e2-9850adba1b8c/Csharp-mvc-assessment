@@ -8,9 +8,9 @@
 
 @Html.Partial("_Message")
 
-<h2>@ViewBag.Title</h2>
 
-<div class="pull-right">
+<div class="d-flex justify-content-between align-items-center">
+    <h2>@ViewBag.Title</h2>
     <a href="@Url.Action("Add")" class="btn btn-primary btn-lg">
         <span class="glyphicon glyphicon-plus"></span> Add company
     </a>
@@ -31,9 +31,9 @@
         {
             <tr>
                 <td>
-                    @if (company.LogoFilepath != "")
+                    @if (company.LogoFilepath != null && company.LogoFilepath != "")
                     {
-                        @Html.DisplayFor(_ => company.LogoFilepath)
+                        <img src="@Html.DisplayFor(_ => company.LogoFilepath)" alt="Logo for @company.Name" style="height: 32px; object-fit: contain;" />
                     }
                 </td>
                 <td>@company.Name</td>

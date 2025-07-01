@@ -1,7 +1,7 @@
 ﻿using C__MVC_Assessment.Data;
 using C__MVC_Assessment.Models;
-using C__MVC_Assessment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
@@ -45,22 +45,17 @@ namespace C__MVC_Assessment.Controllers
 
         public ActionResult Add()
         {
-            var viewModel = new EmployeeAddViewModel();
-
-            viewModel.Init(Context);
-
-            return View(viewModel);
+            ViewBag.Companies = new SelectList(Context.Companies, "Id", "Name");
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Add(EmployeeAddViewModel viewModel)
+        public ActionResult Add(Employee employee)
         {
-            ValidateEmployee(viewModel.Employee);
+            ValidateEmployee(employee);
 
             if (ModelState.IsValid)
             {
-                var employee = viewModel.Employee;
-
                 Context.Employees.Add(employee);
                 Context.SaveChanges();
 
@@ -69,9 +64,7 @@ namespace C__MVC_Assessment.Controllers
                 return RedirectToAction("Detail", new { id = employee.Id });
             }
 
-            viewModel.Init(Context);
-
-            return View(viewModel);
+            return View(employee);
         }
 
         public ActionResult Edit(int? id)
@@ -91,25 +84,18 @@ namespace C__MVC_Assessment.Controllers
                 return NotFound();
             }
 
-            var viewModel = new EmployeeEditViewModel()
-            {
-                Employee = employee
-            };
-            viewModel.Init(Context);
-
-            return View(viewModel);
+            ViewBag.Companies = new SelectList(Context.Companies, "Id", "Name");
+            return View(employee);
 
         }
 
         [HttpPost]
-        public ActionResult Edit(EmployeeEditViewModel viewModel)
+        public ActionResult Edit(Employee employee)
         {
-            ValidateEmployee(viewModel.Employee);
+            ValidateEmployee(employee);
 
             if (ModelState.IsValid)
             {
-                var employee = viewModel.Employee;
-
                 Context.Entry(employee).State = EntityState.Modified;
                 Context.SaveChanges();
 
@@ -118,9 +104,7 @@ namespace C__MVC_Assessment.Controllers
                 return RedirectToAction("Detail", new { id = employee.Id });
             }
 
-            viewModel.Init(Context);
-
-            return View(viewModel);
+            return View(employee);
         }
 
         public ActionResult Delete(int? id)

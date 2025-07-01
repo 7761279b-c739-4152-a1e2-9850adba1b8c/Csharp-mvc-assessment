@@ -20,9 +20,9 @@
                     <!-- home page link -->
                 </div>
                 <div>
-                    <ul class="nav">
-                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Companies" ? "active" : "")">@Html.ActionLink("Companies", "Index", "Companies", null, new { @class="btn btn-secondary mr-2" })</li>
-                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Employees" ? "active" : "")">@Html.ActionLink("Employees", "Index", "Employees", null, new { @class = "btn btn-secondary" })</li>
+                    <ul class="nav list-inline">
+                        <li class="list-inline-item">@Html.ActionLink("Companies", "Index", "Companies", null, new { @class = "btn btn-secondary " + (ViewContext.RouteData.Values["Controller"].ToString() == "Companies" ? "active" : "") })</li>
+                        <li class="list-inline-item">@Html.ActionLink("Employees", "Index", "Employees", null, new { @class = "btn btn-secondary " + (ViewContext.RouteData.Values["Controller"].ToString() == "Employees" ? "active" : "") })</li>
                     </ul>
                 </div>
                 <div></div>

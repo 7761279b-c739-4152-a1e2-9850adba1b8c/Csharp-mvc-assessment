@@ -1,26 +1,26 @@
-﻿@model C__MVC_Assessment.ViewModels.CompanyBaseViewModel
+﻿@model C__MVC_Assessment.Models.Company
 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            @Html.LabelFor(m => m.Company.Name, new { @class = "control-label" })
-            @Html.TextBoxFor(m => m.Company.Name, new { @class = "form-control" })
+            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Company.Email, new { @class = "control-label" })
-            @Html.TextBoxFor(m => m.Company.Email, new { @class = "form-control" })
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
 
         <div class="form-group">
             @Html.Label("LogoFile", "Company logo", new { @class = "control-label" })
-            @*@Html.FileUploadFor(m => m.Company.LogoFile, new { @class = "form-control" })*@
+            @*@Html.FileUploadFor(m => m.LogoFile, new { @class = "form-control" })*@
             <input id="LogoFile" name="LogoFile" title="Company logo" type="file" class="form-control-file" />
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Company.WebsiteUrl, new { @class = "control-label" })
-            @Html.TextBoxFor(m => m.Company.WebsiteUrl, new { @class = "form-control" })
+            @Html.LabelFor(m => m.WebsiteUrl, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.WebsiteUrl, new { @class = "form-control" })
         </div>
 
     </div>

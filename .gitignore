@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msp
 /src/C# MVC Assessment/.vs/C# MVC Assessment/config/applicationhost.config
 /src/C# MVC Assessment/.vs/C# MVC Assessment/FileContentIndex/568e77be-3f8c-49f0-958d-538c3e67a4e5.vsidx
+/src/C# MVC Assessment/wwwroot/LogoFiles

@@ -1,6 +1,5 @@
 ﻿using C__MVC_Assessment.Data;
 using C__MVC_Assessment.Models;
-using C__MVC_Assessment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -46,11 +45,7 @@ namespace C__MVC_Assessment.Controllers
 
         public ActionResult Add()
         {
-            var viewModel = new CompanyAddViewModel();
-
-            viewModel.Init();
-
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
@@ -75,10 +70,10 @@ namespace C__MVC_Assessment.Controllers
                     // todo image size validation
                     //var image = Image.FromStream(company.LogoFile.OpenReadStream());
 
-                    string filepath = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "LogoFiles"));
+                    string filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "LogoFiles");
                     Directory.CreateDirectory(filepath);
 
-                    using (var fs = new FileStream(filepath, FileMode.Create))
+                    using (var fs = new FileStream(Path.Combine(filepath, company.LogoFile.FileName), FileMode.Create))
                     {
                         await company.LogoFile.CopyToAsync(fs);
                     }
@@ -86,7 +81,7 @@ namespace C__MVC_Assessment.Controllers
                     company.LogoFilepath = "/" + Path.Combine("LogoFiles", company.LogoFile.FileName);
                 }
 
-                Context.Companies.Add(company);
+                    Context.Companies.Add(company);
                 Context.SaveChanges();
 
                 TempData["Message"] = "Company created successfully";
@@ -114,24 +109,17 @@ namespace C__MVC_Assessment.Controllers
                 return NotFound();
             }
 
-            var viewModel = new CompanyEditViewModel()
-            {
-                Company = company
-            };
-            viewModel.Init();
-
-            return View(viewModel);
+            return View(company);
 
         }
 
         [HttpPost]
-        public IActionResult Edit(CompanyEditViewModel viewModel)
+        public IActionResult Edit(Company company)
         {
-            ValidateCompany(viewModel.Company);
+            ValidateCompany(company);
 
             if (ModelState.IsValid)
             {
-                var company = viewModel.Company;
 
                 Context.Entry(company).State = EntityState.Modified;
                 Context.SaveChanges();
@@ -141,9 +129,7 @@ namespace C__MVC_Assessment.Controllers
                 return RedirectToAction("Detail", new { id = company.Id });
             }
 
-            viewModel.Init();
-
-            return View(viewModel);
+            return View(company);
         }
 
         public IActionResult Delete(int? id)

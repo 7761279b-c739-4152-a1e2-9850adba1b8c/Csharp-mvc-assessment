@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\**" />
     <Compile Remove="_Pages\**" />
+    <Content Remove="ViewModels\**" />
     <Content Remove="_Pages\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
     <EmbeddedResource Remove="_Pages\**" />
+    <None Remove="ViewModels\**" />
     <None Remove="_Pages\**" />
   </ItemGroup>
 

@@ -11,11 +11,10 @@
 <div class="row">
     <div class="col-md-6">
 
-        <p>@Model.LogoFilepath</p>
-        @if (Model.LogoFilepath != "")
+        @if (Model.LogoFilepath != null && Model.LogoFilepath != "")
         {
             <div class="row">
-                @Html.DisplayFor(_ => Model.LogoFilepath)
+                <img src="@Html.DisplayFor(_ => Model.LogoFilepath)" alt="Logo for @Model.Name" style="height: 128px; object-fit: contain;" />
             </div>
         }
         <div class="row">
