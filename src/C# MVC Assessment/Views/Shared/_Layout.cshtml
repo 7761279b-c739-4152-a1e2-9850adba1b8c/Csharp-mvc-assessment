@@ -9,7 +9,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @applicationName</title>
-    <!-- todo move stylesheet to local -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -17,7 +16,7 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <!-- home page link -->
+                    <div class="nav">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "btn btn-primary " + (ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "") })</div>
                 </div>
                 <div>
                     <ul class="nav list-inline">

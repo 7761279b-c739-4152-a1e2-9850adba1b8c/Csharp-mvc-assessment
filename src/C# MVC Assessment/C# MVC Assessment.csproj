@@ -9,12 +9,16 @@
 
   <ItemGroup>
     <Compile Remove="ViewModels\**" />
+    <Compile Remove="Views\NewFolder\**" />
     <Compile Remove="_Pages\**" />
     <Content Remove="ViewModels\**" />
+    <Content Remove="Views\NewFolder\**" />
     <Content Remove="_Pages\**" />
     <EmbeddedResource Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Views\NewFolder\**" />
     <EmbeddedResource Remove="_Pages\**" />
     <None Remove="ViewModels\**" />
+    <None Remove="Views\NewFolder\**" />
     <None Remove="_Pages\**" />
   </ItemGroup>
 
