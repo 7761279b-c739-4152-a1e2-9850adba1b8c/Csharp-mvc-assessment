@@ -13,6 +13,7 @@ namespace C__MVC_Assessment.Models
         [Display(Name = "Company")]
         public int? CompanyId { get; set; }
         public string? Email { get; set; }
+        [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
 
         public Company? Company { get; set; }

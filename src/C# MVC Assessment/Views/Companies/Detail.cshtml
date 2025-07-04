@@ -40,7 +40,10 @@
                 @Html.LabelFor(m => m.WebsiteUrl)
             </div>
             <div class="col-xs-8 col-sm-8">
-                @(Model.WebsiteUrl is null ? "" : $"<a href=\"{Model.WebsiteUrl}\" target=\"_blank\">{Model.WebsiteUrl}</a>")
+                @if (!(Model.WebsiteUrl is null))
+                {
+                    <a href="@Model.WebsiteUrl" target="_blank">@Model.WebsiteUrl.Replace("https://", "")</a>
+                }
             </div>
         </div>
     </div>
