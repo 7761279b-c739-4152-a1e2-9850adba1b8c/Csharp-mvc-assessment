@@ -32,16 +32,24 @@ app.MapControllerRoute(
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<Context>();
-    var pendingMigrations = dbContext.Database.GetPendingMigrations();
+    var context = scope.ServiceProvider.GetRequiredService<Context>();
+    var pendingMigrations = context.Database.GetPendingMigrations();
     if (pendingMigrations.Any())
     {
-        dbContext.Database.Migrate();
+        context.Database.Migrate();
     }
 }
 
 app.MapRazorPages();
 
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<Context>();
+
+    // seeds database if its empty
+    Seeder.Seed(context);
+
+}
 
 app.Run();
